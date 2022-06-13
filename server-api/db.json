@@ -1,0 +1,29 @@
+{
+  "waiters": [
+    { "id": 1, "name": "Alpha" },
+    { "id": 2, "name": "Beta" },
+    { "id": 3, "name": "Gamma" },
+    { "id": 4, "name": "Delta" },
+    { "id": 5, "name": "Epsilon" },
+    { "id": 6, "name": "Zeta" },
+    { "id": 7, "name": "Theta" }
+  ],
+  "tables": [
+    { "id": 1, "name": "Table--1" },
+    { "id": 2, "name": "Table--2" },
+    { "id": 3, "name": "Table--3" },
+    { "id": 4, "name": "Table--4" },
+    { "id": 5, "name": "Table--5" },
+    { "id": 6, "name": "Table--6" },
+    { "id": 7, "name": "Table--7" }
+  ],
+  "foods": [
+    { "id": 1, "name": "pizza", "price": "23" },
+    { "id": 2, "name": "burger", "price": "23" },
+    { "id": 3, "name": "tacos", "price": "10" },
+    { "id": 4, "name": "burittos", "price": "46" },
+    { "id": 5, "name": "fajitas", "price": "76" },
+    { "id": 6, "name": "spicy tantuni", "price": "53" }
+  ],
+  "orders": []
+}
