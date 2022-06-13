@@ -1,22 +1,33 @@
+import { useEffect } from "react";
 import { Typography, Space } from "antd";
 import { DesktopOutlined, DollarOutlined } from "@ant-design/icons";
 import InfoCard from "../../components/InfoCard";
-
+import { fetchOrders } from "../../services/fetch";
+import { useStore } from "../../services/store";
+import "./index.scss";
 const { Title } = Typography;
+
 export const Dashboard = () => {
+  const orders = useStore((state) => state.orders);
+  const setOrders = useStore((state) => state.setOrders);
+
+  useEffect(() => {
+    fetchOrders(setOrders);
+  }, []);
+
   return (
     <div>
-      <Title level={3}>Welcome Back , Jerome!</Title>
-      <Space>
+      <Title level={3}>Welcome Back , Outlander!</Title>
+      <Space className="w-100 card-wrapper">
         <InfoCard
-          title="Total Orders"
+          title="Total Orders (All Time)"
           icon={<DesktopOutlined />}
-          information="Total: 22 orders"
+          information={`Total: ${orders.length} orders`}
         />
         <InfoCard
           title="Today's Orders"
           icon={<DollarOutlined />}
-          information="Total Earnings: 22$ "
+          information="Total Earnings: 22$"
         />
       </Space>
     </div>
