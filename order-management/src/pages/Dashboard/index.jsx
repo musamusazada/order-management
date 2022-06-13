@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Typography, Space } from "antd";
 import { DesktopOutlined, DollarOutlined } from "@ant-design/icons";
 import InfoCard from "../../components/InfoCard";
@@ -11,12 +11,35 @@ const { Title } = Typography;
 export const Dashboard = () => {
   const orders = useStore((state) => state.orders);
   const setOrders = useStore((state) => state.setOrders);
-  const a = currentDate();
+  const [todayEarnings, setTodayEarnings] = useState(0);
+
+  //Summing Todays earnings
+  const reduceFoodPrice = (arr) => {
+    let total = 0;
+    arr.forEach((el) => (total += el.totalPrice));
+
+    return total;
+  };
+  //Finding if Order is Done Today!
+  const todaysTotalEarnings = () => {
+    let total = 0;
+    const today = currentDate();
+    orders.forEach((el) => {
+      if (el.status === "done") {
+        if (today === el.createDate) {
+          total += reduceFoodPrice(el.foodsArray);
+        }
+      }
+    });
+    setTodayEarnings(total);
+  };
+
   useEffect(() => {
     fetchOrders(setOrders);
-    console.log(a);
   }, []);
-
+  useEffect(() => {
+    todaysTotalEarnings();
+  }, [orders]);
   return (
     <div>
       <Title level={3}>Welcome Back , Outlander!</Title>
@@ -29,7 +52,7 @@ export const Dashboard = () => {
         <InfoCard
           title="Today's Orders"
           icon={<DollarOutlined />}
-          information="Total Earnings: 22$"
+          information={`Total Earnings: ${todayEarnings}$`}
         />
       </Space>
     </div>
