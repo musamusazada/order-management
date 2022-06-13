@@ -4,15 +4,17 @@ import { DesktopOutlined, DollarOutlined } from "@ant-design/icons";
 import InfoCard from "../../components/InfoCard";
 import { fetchOrders } from "../../services/fetch";
 import { useStore } from "../../services/store";
+import { currentDate } from "../../utils/dateHelper";
 import "./index.scss";
 const { Title } = Typography;
 
 export const Dashboard = () => {
   const orders = useStore((state) => state.orders);
   const setOrders = useStore((state) => state.setOrders);
-
+  const a = currentDate();
   useEffect(() => {
     fetchOrders(setOrders);
+    console.log(a);
   }, []);
 
   return (
