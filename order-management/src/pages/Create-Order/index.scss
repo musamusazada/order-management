@@ -1,0 +1,16 @@
+.create-order-form {
+  width: 60%;
+  label {
+    width: 100px;
+    font-size: 1.2rem;
+  }
+  .ant-select,
+  .ant-input {
+    width: 200px;
+  }
+}
+
+.food-price {
+  font-size: 1.4rem;
+  font-weight: 700;
+}

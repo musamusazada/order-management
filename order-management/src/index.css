@@ -1,9 +1,16 @@
+:root {
+  --black: #0f0f0f;
+  --green: #0ead69;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
+p {
+  margin-bottom: 0;
+}
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -17,6 +24,27 @@ code {
     monospace;
 }
 
+/* Layout Utils */
 .w-100 {
   width: 100%;
+}
+.d-flex {
+  display: flex;
+}
+.justify-end {
+  justify-content: end;
+}
+
+/* Spacing */
+
+.mt-50 {
+  margin-top: 50px;
+}
+
+/* Colors */
+.bg-green {
+  background-color: var(--green);
+}
+.bg-black {
+  background-color: var(--black);
 }

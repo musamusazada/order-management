@@ -1,0 +1,16 @@
+.order-modal {
+  width: 90vw !important;
+  min-height: 40vh;
+  .ant-modal-body {
+    padding: 60px;
+  }
+  .ant-modal-footer {
+    display: none;
+  }
+  .status-indicator {
+    display: inline-block;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 2px;
+  }
+}
