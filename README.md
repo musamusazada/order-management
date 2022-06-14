@@ -38,3 +38,5 @@ Default Port: 3001
 * [Wouter](https://github.com/molefrog/wouter) for Routing
 * [Zustand](https://github.com/pmndrs/zustand) for State Management
 * [JSON Server](https://github.com/typicode/json-server) for Fake API
+* [Moment](https://momentjs.com/) for Date Time Functionality
+* [UUID](https://github.com/RickBr0wn/react-uuid) for Unique Ids
