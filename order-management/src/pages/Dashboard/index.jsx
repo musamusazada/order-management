@@ -9,8 +9,11 @@ import "./index.scss";
 const { Title } = Typography;
 
 export const Dashboard = () => {
+  //Store
   const orders = useStore((state) => state.orders);
   const setOrders = useStore((state) => state.setOrders);
+
+  //Calculation state
   const [todayEarnings, setTodayEarnings] = useState(0);
 
   //Summing Todays earnings

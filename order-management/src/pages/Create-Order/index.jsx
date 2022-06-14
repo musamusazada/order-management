@@ -17,16 +17,24 @@ import { currentDate, currentTime } from "../../utils/dateHelper";
 import "./index.scss";
 const { Title, Text } = Typography;
 export const CreateOrder = () => {
+  //Fetch Data States
   const [tables, setTables] = useState([]);
   const [waiters, setWaiters] = useState([]);
   const [foods, setFoods] = useState([]);
+
+  //Order Object State
   const [orderObject, setOrderObject] = useState();
+
+  //Food Object State
   const [foodsCart, setFoodsCart] = useState([]);
   const [singlePrice, setSinglePrice] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
+
+  //Logic State
   const [stage, setStage] = useState(false);
 
+  //Form Handling
   const [formFood] = Form.useForm();
 
   useEffect(() => {
