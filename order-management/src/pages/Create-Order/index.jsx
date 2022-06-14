@@ -1,6 +1,7 @@
 import { Typography, Space, Form, Select, Button, Input, message } from "antd";
 import { useEffect, useState } from "react";
 import { fetchTables, fetchWaiters, fetchFoods } from "../../services/fetch";
+import { currentDate, currentTime } from "../../utils/dateHelper";
 import "./index.scss";
 const { Title } = Typography;
 export const CreateOrder = () => {
@@ -12,26 +13,54 @@ export const CreateOrder = () => {
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const [stage, setStage] = useState(false);
+
+  const [form] = Form.useForm();
+
   useEffect(() => {
     fetchTables(setTables);
     fetchWaiters(setWaiters);
     fetchFoods(setFoods);
   }, []);
 
+  //Submit Method for First Form. -- Datas: Table, Waiter
   const onFinish = (values) => {
     const newOrderObject = values;
+    newOrderObject.createDate = currentDate();
+    newOrderObject.foodsArray = [];
+    newOrderObject.totalOrderPrice = 0;
+    console.log(newOrderObject);
     setOrderObject(newOrderObject);
+
     setStage(true);
   };
+
+  //Submit Method for Second Form. --Food (push to foodsArray)
+  //Food consists of : id, name, totalPrice, orderTime, waitTime, status
   const onFinishFood = (values) => {
-    console.log(values);
+    if (totalPrice === 0) {
+      message.error("Invalid Input ! Please select Valid Quantity");
+    } else {
+      const _orderObj = orderObject;
+      const _foodObj = values;
+      _foodObj.totalPrice = totalPrice;
+      _foodObj.orderTime = currentTime();
+      _orderObj.foodsArray.push(_foodObj);
+      _orderObj.totalOrderPrice =
+        _orderObj.totalOrderPrice + _foodObj.totalPrice;
+      setOrderObject(_orderObj);
+      console.log(_orderObj);
+    }
   };
+
+  //Gets selected food and assigns single price for calculation
   const handleFoodSelect = (value) => {
     const selectedFood = foods.find((el) => el.name === value);
     setSinglePrice(selectedFood.price);
     setTotalPrice(0);
     setQuantity(1);
   };
+
+  //Once quantity changes, calculates Total Price.
   const handleQuantity = (e) => {
     let { value } = e.target;
     try {
@@ -96,7 +125,7 @@ export const CreateOrder = () => {
           </Button>
         </Form>
       ) : (
-        <Form className="create-order-form" onFinish={onFinishFood}>
+        <Form className="create-order-form" onFinish={onFinishFood} form={form}>
           <Form.Item
             label="Food"
             name="name"
