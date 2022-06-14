@@ -27,6 +27,25 @@ export const Orders = () => {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      render: (val) => <p className={"status-" + val}>{val}</p>,
+
+      filters: [
+        {
+          text: "done",
+          value: "done",
+        },
+        {
+          text: "pending",
+          value: "pending",
+        },
+        {
+          text: "cancelled",
+          value: "cancelled",
+        },
+      ],
+      filterMode: "tree",
+      filterSearch: true,
+      onFilter: (value, record) => record.status === value,
     },
     {
       title: "Total Price",
@@ -53,7 +72,7 @@ export const Orders = () => {
   //Modal State
   const [isModalVisible, setIsModalVisible] = useState(false);
   //Order State
-  const [orderItem, setOrderItem] = useState({ id: 0 });
+  const [orderItem, setOrderItem] = useState({ id: 0, foodsArray: [] });
   //Order Store
   const orders = useStore((state) => state.orders);
   const setOrders = useStore((state) => state.setOrders);
@@ -67,6 +86,9 @@ export const Orders = () => {
     fetchOrders(setOrders);
   }, []);
 
+  const refetchOrders = () => {
+    fetchOrders(setOrders);
+  };
   return (
     <>
       <Space className="w-100" direction="vertical">
@@ -77,6 +99,7 @@ export const Orders = () => {
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
         orderItem={orderItem}
+        refetchOrders={refetchOrders}
       />
     </>
   );

@@ -1,18 +1,61 @@
+import React, { useEffect, useState } from "react";
 import { Modal, Table, Button } from "antd";
-import { useEffect } from "react";
-import { useState } from "react";
+import { currentDate } from "../../../utils/dateHelper";
 import "./index.scss";
-const OrderModal = ({ isModalVisible, setIsModalVisible, orderItem }) => {
+const OrderModal = ({
+  isModalVisible,
+  setIsModalVisible,
+  orderItem,
+  refetchOrders,
+}) => {
   const [canFinish, setCanFinish] = useState(false);
 
   useEffect(() => {
-    if (
-      orderItem.foodsArray !== "undefined" ||
-      orderItem.foodsArray.length > 0
-    ) {
+    if (orderItem.foodsArray.length > 0) {
       setCanFinish(true);
+    } else {
+      setCanFinish(false);
     }
   }, [orderItem]);
+
+  //Change Food Status and Update
+  function orderFoodStatus(id, index, status) {
+    orderItem.foodsArray[index].status = status;
+    if (orderItem.id != 0) {
+      fetch(`${import.meta.env.VITE_BASE_API}/orders/${orderItem.id}`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderItem),
+      })
+        .then((res) => refetchOrders())
+        .catch((err) => message.error(err));
+    }
+  }
+
+  //Change Order Status and Update
+  function orderStatusChange(status) {
+    orderItem.status = status;
+    if (status === "done") {
+      orderItem.doneDate = currentDate();
+    } else {
+      orderItem.cancelDate = currentDate();
+    }
+    if (orderItem.id != 0) {
+      fetch(`${import.meta.env.VITE_BASE_API}/orders/${orderItem.id}`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderItem),
+      })
+        .then((res) => refetchOrders())
+        .catch((err) => message.error(err));
+    }
+  }
 
   //Table Columns
   const columns = [
@@ -67,14 +110,25 @@ const OrderModal = ({ isModalVisible, setIsModalVisible, orderItem }) => {
       title: "Done",
       dataIndex: "id",
       key: "id",
-      render: (id) => <Button type="primary">Done</Button>,
+      render: (id, _, index) => (
+        <Button
+          type="primary"
+          onClick={() => orderFoodStatus(id, index, "done")}
+        >
+          Done
+        </Button>
+      ),
     },
     {
       title: "Cancel",
       dataIndex: "id",
       key: "id",
-      render: (id) => (
-        <Button type="primary" danger>
+      render: (id, _, index) => (
+        <Button
+          type="primary"
+          danger
+          onClick={() => orderFoodStatus(id, index, "cancelled")}
+        >
           Cancel
         </Button>
       ),
@@ -100,11 +154,19 @@ const OrderModal = ({ isModalVisible, setIsModalVisible, orderItem }) => {
       />
       <div className="w-100 d-flex justify-end mt-50">
         {canFinish ? (
-          <Button type="primary" danger>
+          <Button
+            type="primary"
+            danger
+            onClick={() => orderStatusChange("done")}
+          >
             Finish Order
           </Button>
         ) : (
-          <Button type="primary" danger>
+          <Button
+            type="primary"
+            danger
+            onClick={() => orderStatusChange("cancel")}
+          >
             Cancel Order
           </Button>
         )}
@@ -113,4 +175,4 @@ const OrderModal = ({ isModalVisible, setIsModalVisible, orderItem }) => {
   );
 };
 
-export default OrderModal;
+export default React.memo(OrderModal);

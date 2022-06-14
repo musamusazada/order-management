@@ -102,7 +102,7 @@
       "id": 1,
       "table": "Table--1",
       "waiter": "Alpha",
-      "status": "pending",
+      "status": "done",
       "foodsArray": [
         {
           "id": 1,
@@ -116,7 +116,7 @@
       ],
       "totalOrderPrice": 46,
       "createDate": "14-06-2022",
-      "doneDate": "---",
+      "doneDate": "14-06-2022",
       "cancelDate": ""
     },
     {
@@ -132,7 +132,7 @@
           "totalPrice": 46,
           "orderTime": "10:00",
           "waitTime": "10m",
-          "status": "cancelled"
+          "status": "done"
         }
       ],
       "totalOrderPrice": 46,
@@ -141,7 +141,9 @@
       "cancelDate": ""
     },
     {
-      "id": 3
+      "id": 3,
+      "status": "done",
+      "doneDate": "14-06-2022"
     },
     {
       "table": "Table--2",
@@ -154,10 +156,13 @@
           "count": "3",
           "totalPrice": 12,
           "id": "7dceabb6-6aa0-40b6-84da-e4047c8f168f",
-          "orderTime": "05:11"
+          "orderTime": "05:11",
+          "status": "done"
         }
       ],
-      "totalOrderPrice": 12
+      "totalOrderPrice": 12,
+      "status": "done",
+      "doneDate": "14-06-2022"
     },
     {
       "table": "Table--3",
@@ -172,12 +177,139 @@
           "id": "87e5d076-8728-4584-81b8-36cbfda9b05d",
           "orderTime": "05:15",
           "waitTime": "3m",
-          "status": "pending"
+          "status": "cancelled"
         }
       ],
       "totalOrderPrice": 106,
-      "status": "pending",
-      "doneDate": "---"
+      "status": "done",
+      "doneDate": "14-06-2022"
+    },
+    {
+      "table": "Table--2",
+      "waiter": "Beta",
+      "id": "660ff498-eb4b-4e19-bc61-56c680fc8d4b",
+      "createDate": "14-06-2022",
+      "foodsArray": [
+        {
+          "food": "burger",
+          "count": "2",
+          "totalPrice": 46,
+          "id": "3dae3825-030f-419b-b6e3-ae2de1d1e056",
+          "orderTime": "05:39",
+          "waitTime": "3m",
+          "status": "done"
+        },
+        {
+          "food": "fajitas",
+          "count": "3",
+          "totalPrice": 228,
+          "id": "01492841-6ff2-4b7b-8918-c8588406a5dd",
+          "orderTime": "05:39",
+          "waitTime": "3m",
+          "status": "done"
+        }
+      ],
+      "totalOrderPrice": 274,
+      "status": "done",
+      "doneDate": "14-06-2022"
+    },
+    {
+      "table": "Table--7",
+      "waiter": "Theta",
+      "id": "0ccb5672-9acc-4bd7-8173-8ffe9f991a76",
+      "createDate": "14-06-2022",
+      "foodsArray": [],
+      "totalOrderPrice": 0,
+      "status": "cancel",
+      "doneDate": "14-06-2022",
+      "cancelDate": "14-06-2022"
+    },
+    {
+      "table": "Table--5",
+      "waiter": "Delta",
+      "id": "537219eb-d1c7-4aeb-a9a3-429905e8d0ed",
+      "createDate": "14-06-2022",
+      "foodsArray": [
+        {
+          "food": "burittos",
+          "count": "2",
+          "totalPrice": 8,
+          "id": "6c22fee7-67c2-484b-bf32-e1ab50eaee4d",
+          "orderTime": "05:54",
+          "waitTime": "3m",
+          "status": "done"
+        }
+      ],
+      "totalOrderPrice": 8,
+      "status": "done",
+      "doneDate": "14-06-2022"
+    },
+    {
+      "table": "Table--4",
+      "waiter": "Theta",
+      "id": "b399ee7f-01e6-4569-a2f9-779618e4e0df",
+      "createDate": "14-06-2022",
+      "foodsArray": [
+        {
+          "food": "spicy tantuni",
+          "count": "2",
+          "totalPrice": 106,
+          "id": "eb41f12f-0624-4f9c-94d8-e9b1dcddb09a",
+          "orderTime": "06:04",
+          "waitTime": "3m",
+          "status": "done"
+        },
+        {
+          "food": "pizza",
+          "count": "1",
+          "totalPrice": 23,
+          "id": "4999a07d-435e-43fa-b377-90fe60ff08f6",
+          "orderTime": "06:04",
+          "waitTime": "3m",
+          "status": "done"
+        }
+      ],
+      "totalOrderPrice": 129,
+      "status": "done",
+      "doneDate": "14-06-2022"
+    },
+    {
+      "table": "Table--7",
+      "waiter": "Theta",
+      "id": "601edda8-54f3-45ca-9782-1c4ae92faf41",
+      "createDate": "14-06-2022",
+      "foodsArray": [
+        {
+          "food": "spicy tantuni",
+          "count": "2",
+          "totalPrice": 106,
+          "id": "2f7210b5-632a-404d-af87-50435b3c4985",
+          "orderTime": "06:05",
+          "waitTime": "3m",
+          "status": "done"
+        },
+        {
+          "food": "burittos",
+          "count": "1",
+          "totalPrice": 4,
+          "id": "855e1056-757b-4bb6-8053-624610e91c0c",
+          "orderTime": "06:05",
+          "waitTime": "3m",
+          "status": "done"
+        },
+        {
+          "food": "pizza",
+          "count": "1",
+          "totalPrice": 23,
+          "id": "c7d4bee3-f2c5-498f-9671-e40f4c6f13a1",
+          "orderTime": "06:05",
+          "waitTime": "3m",
+          "status": "done"
+        }
+      ],
+      "totalOrderPrice": 133,
+      "status": "done",
+      "doneDate": "14-06-2022"
     }
   ]
 }
