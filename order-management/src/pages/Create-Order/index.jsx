@@ -114,6 +114,7 @@ export const CreateOrder = () => {
       .catch((err) => message.error(err));
   };
 
+  //Delete Food from Order Object.
   const deleteFood = (id) => {
     const array = foodsCart.filter((el) => el.id !== id);
     const mutateObj = orderObject;

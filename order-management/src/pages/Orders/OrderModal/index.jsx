@@ -8,6 +8,7 @@ const OrderModal = ({
   orderItem,
   refetchOrders,
 }) => {
+  //Logic State
   const [canFinish, setCanFinish] = useState(false);
 
   useEffect(() => {
