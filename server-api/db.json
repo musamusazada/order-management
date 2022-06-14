@@ -310,6 +310,84 @@
       "totalOrderPrice": 133,
       "status": "done",
       "doneDate": "14-06-2022"
+    },
+    {
+      "table": "Table--2",
+      "waiter": "Zeta",
+      "id": "c4ec1496-f207-4a9a-b117-7b53be58708a",
+      "createDate": "14-06-2022",
+      "foodsArray": [
+        {
+          "food": "tacos",
+          "count": "2",
+          "totalPrice": 20,
+          "id": "633e61c7-bf9d-46d0-8a63-544f68bfbd52",
+          "orderTime": "06:22",
+          "waitTime": "3m",
+          "status": "done"
+        },
+        {
+          "food": "spicy tantuni",
+          "count": "3",
+          "totalPrice": 159,
+          "id": "ed13e8a7-8968-4a52-8da3-f27e88c9819f",
+          "orderTime": "06:22",
+          "waitTime": "3m",
+          "status": "done"
+        }
+      ],
+      "totalOrderPrice": 179,
+      "status": "done",
+      "doneDate": "14-06-2022"
+    },
+    {
+      "table": "Table--1",
+      "waiter": "Alpha",
+      "id": "faf32352-0c9b-4dcd-8e8b-0235c426707b",
+      "createDate": "14-06-2022",
+      "foodsArray": [
+        {
+          "food": "burger",
+          "count": "1",
+          "totalPrice": 23,
+          "id": "92d51899-2c0a-44e6-80a6-9b271ed3a320",
+          "orderTime": "06:40",
+          "waitTime": "3m",
+          "status": "pending"
+        },
+        {
+          "food": "burittos",
+          "count": "2",
+          "totalPrice": 8,
+          "id": "e954babb-e544-4abb-9766-8b1436473c3f",
+          "orderTime": "06:40",
+          "waitTime": "3m",
+          "status": "pending"
+        }
+      ],
+      "totalOrderPrice": 31,
+      "status": "pending",
+      "doneDate": "---"
+    },
+    {
+      "table": "Table--7",
+      "waiter": "Epsilon",
+      "id": "0cfd2539-4267-450e-aedb-8978b4a5faf7",
+      "createDate": "14-06-2022",
+      "foodsArray": [
+        {
+          "food": "spicy tantuni",
+          "count": "2",
+          "totalPrice": 106,
+          "id": "29cb82b3-777d-49a1-b6b7-d2ad494b4d45",
+          "orderTime": "06:41",
+          "waitTime": "3m",
+          "status": "done"
+        }
+      ],
+      "totalOrderPrice": 116,
+      "status": "done",
+      "doneDate": "14-06-2022"
     }
   ]
 }

@@ -25,8 +25,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
+.ant-layout-content {
+  min-height: 100vh;
+  overflow-y: scroll;
+}
 /* Layout Utils */
+.hide {
+  display: none !important;
+}
 .w-100 {
   width: 100%;
 }

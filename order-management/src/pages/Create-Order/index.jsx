@@ -1,16 +1,27 @@
 import { useEffect, useState } from "react";
+import { DeleteFilled } from "@ant-design/icons";
 import { Link } from "wouter";
 import { v4 as uuidv4 } from "uuid";
-import { Typography, Space, Form, Select, Button, Input, message } from "antd";
+import {
+  Typography,
+  Space,
+  Form,
+  Select,
+  Button,
+  Input,
+  List,
+  message,
+} from "antd";
 import { fetchTables, fetchWaiters, fetchFoods } from "../../services/fetch";
 import { currentDate, currentTime } from "../../utils/dateHelper";
 import "./index.scss";
-const { Title } = Typography;
+const { Title, Text } = Typography;
 export const CreateOrder = () => {
   const [tables, setTables] = useState([]);
   const [waiters, setWaiters] = useState([]);
   const [foods, setFoods] = useState([]);
   const [orderObject, setOrderObject] = useState();
+  const [foodsCart, setFoodsCart] = useState([]);
   const [singlePrice, setSinglePrice] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -54,6 +65,9 @@ export const CreateOrder = () => {
       _orderObj.totalOrderPrice =
         _orderObj.totalOrderPrice + _foodObj.totalPrice;
       setOrderObject(_orderObj);
+      setFoodsCart(_orderObj.foodsArray);
+      setQuantity(1);
+      setTotalPrice(0);
       formFood.resetFields();
     }
   };
@@ -61,9 +75,9 @@ export const CreateOrder = () => {
   //Gets selected food and assigns single price for calculation
   const handleFoodSelect = (value) => {
     const selectedFood = foods.find((el) => el.name === value);
+    setQuantity(1);
     setSinglePrice(selectedFood.price);
     setTotalPrice(0);
-    setQuantity(1);
   };
 
   //Once quantity changes, calculates Total Price.
@@ -96,14 +110,25 @@ export const CreateOrder = () => {
       },
       body: JSON.stringify(orderObject),
     })
-      .then((res) => console.log(res))
+      .then((res) => message.success("Order Successfully Created !"))
       .catch((err) => message.error(err));
   };
+
+  const deleteFood = (id) => {
+    const array = foodsCart.filter((el) => el.id !== id);
+    const mutateObj = orderObject;
+    mutateObj.foodsArray = array;
+    setOrderObject(mutateObj);
+    setFoodsCart(array);
+  };
   return (
-    <Space className="w-100" direction="vertical">
-      <Title>Create Order</Title>
-      {!stage ? (
-        <Form className="create-order-form" onFinish={onFinish}>
+    <Space className="create-order-wrapper">
+      <Space className="w-100" direction="vertical">
+        <Title>Create Order</Title>
+        <Form
+          className={stage ? "create-order-form hide" : "create-order-form"}
+          onFinish={onFinish}
+        >
           <Form.Item
             label="Table"
             name="table"
@@ -144,9 +169,8 @@ export const CreateOrder = () => {
             Create Order
           </Button>
         </Form>
-      ) : (
         <Form
-          className="create-order-form"
+          className={!stage ? "create-order-form hide" : "create-order-form"}
           onFinish={onFinishFood}
           form={formFood}
         >
@@ -198,11 +222,28 @@ export const CreateOrder = () => {
             </Button>
           </Space>
         </Form>
-      )}
 
-      <Link href="/orders">
-        <Button>Go to Orders</Button>
-      </Link>
+        <Link href="/orders">
+          <Button>Go to Orders</Button>
+        </Link>
+      </Space>
+      <List
+        bordered
+        dataSource={foodsCart}
+        renderItem={(item) => (
+          <List.Item>
+            <Text>
+              {item.count} {item.food}
+              <br />
+              Total: {item.totalPrice} AZN
+            </Text>
+            <DeleteFilled
+              onClick={() => deleteFood(item.id)}
+              style={{ color: "red" }}
+            />
+          </List.Item>
+        )}
+      />
     </Space>
   );
 };
