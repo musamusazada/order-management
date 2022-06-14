@@ -1,5 +1,7 @@
-import { Typography, Space, Form, Select, Button, Input, message } from "antd";
 import { useEffect, useState } from "react";
+import { Link } from "wouter";
+import { v4 as uuidv4 } from "uuid";
+import { Typography, Space, Form, Select, Button, Input, message } from "antd";
 import { fetchTables, fetchWaiters, fetchFoods } from "../../services/fetch";
 import { currentDate, currentTime } from "../../utils/dateHelper";
 import "./index.scss";
@@ -14,7 +16,7 @@ export const CreateOrder = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [stage, setStage] = useState(false);
 
-  const [form] = Form.useForm();
+  const [formFood] = Form.useForm();
 
   useEffect(() => {
     fetchTables(setTables);
@@ -25,12 +27,13 @@ export const CreateOrder = () => {
   //Submit Method for First Form. -- Datas: Table, Waiter
   const onFinish = (values) => {
     const newOrderObject = values;
+    newOrderObject.id = uuidv4();
     newOrderObject.createDate = currentDate();
     newOrderObject.foodsArray = [];
     newOrderObject.totalOrderPrice = 0;
-    console.log(newOrderObject);
+    newOrderObject.status = "pending";
+    newOrderObject.doneDate = "---";
     setOrderObject(newOrderObject);
-
     setStage(true);
   };
 
@@ -42,13 +45,16 @@ export const CreateOrder = () => {
     } else {
       const _orderObj = orderObject;
       const _foodObj = values;
+      _foodObj.id = uuidv4();
       _foodObj.totalPrice = totalPrice;
       _foodObj.orderTime = currentTime();
+      _foodObj.waitTime = "3m";
+      _foodObj.status = "pending";
       _orderObj.foodsArray.push(_foodObj);
       _orderObj.totalOrderPrice =
         _orderObj.totalOrderPrice + _foodObj.totalPrice;
       setOrderObject(_orderObj);
-      console.log(_orderObj);
+      formFood.resetFields();
     }
   };
 
@@ -78,6 +84,20 @@ export const CreateOrder = () => {
       setQuantity(1);
       setTotalPrice(0);
     }
+  };
+
+  //Post Order to server
+  const saveOrder = () => {
+    fetch(`${import.meta.env.VITE_BASE_API}/orders`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderObject),
+    })
+      .then((res) => console.log(res))
+      .catch((err) => message.error(err));
   };
   return (
     <Space className="w-100" direction="vertical">
@@ -125,10 +145,14 @@ export const CreateOrder = () => {
           </Button>
         </Form>
       ) : (
-        <Form className="create-order-form" onFinish={onFinishFood} form={form}>
+        <Form
+          className="create-order-form"
+          onFinish={onFinishFood}
+          form={formFood}
+        >
           <Form.Item
             label="Food"
-            name="name"
+            name="food"
             rules={[
               {
                 required: true,
@@ -165,11 +189,20 @@ export const CreateOrder = () => {
           <Form.Item label="Total Price" name="totalPrice">
             <p className="food-price">{totalPrice} AZN</p>
           </Form.Item>
-          <Button htmlType="submit" type="primary">
-            Add to order
-          </Button>
+          <Space>
+            <Button htmlType="submit" type="primary">
+              Add to order
+            </Button>
+            <Button type="primary" onClick={saveOrder}>
+              Save Order
+            </Button>
+          </Space>
         </Form>
       )}
+
+      <Link href="/orders">
+        <Button>Go to Orders</Button>
+      </Link>
     </Space>
   );
 };
